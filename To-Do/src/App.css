@@ -1,42 +1,121 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+body{
+    font-family: Arial, sans-serif;
+    background:#f7f7f7;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app{
+    background:white;
+    width:500px;
+    padding:25px;
+    border-radius:12px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1{
+    margin-top:0;
+    font-size:24px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+ul{
+    list-style:none;
+    padding:0;
 }
 
-.card {
-  padding: 2em;
+li{
+    padding:12px 0;
+    border-bottom:1px solid #eee;
 }
 
-.read-the-docs {
-  color: #888;
+.task-container {
+  list-style: none;
+  width: 100%;
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.task {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;           
+  width: 100%;
+}
+
+.task-left {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+}
+
+.task-left input[type="checkbox"] {
+  flex-shrink: 0; 
+}
+
+.task-text {
+  margin: 0;      
+}
+
+
+.task-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.time {
+  font-size: 14px;
+  color: #6b7280;
+  background: #f1f5f9;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+
+.delete {
+  border: none;
+  background: #ef4444;
+  color: white;
+  border-radius: 6px;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.time{
+    font-size:14px;
+    color:#6b7280;
+    background:#f1f5f9;
+    padding:4px 8px;
+    border-radius:6px;
+}
+
+.form{
+    margin-top:20px;
+    display:flex;
+    gap:10px;
+}
+
+.form input[type="text"]{
+    flex:1;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ddd;
+}
+
+.form input[type="time"]{
+    padding:10px;
+    border-radius:6px;
+    border:1px solid #ddd;
+}
+
+.form button{
+    padding:10px 14px;
+    border:none;
+    border-radius:8px;
+    background:#3B82F6;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
 }
