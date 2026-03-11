@@ -1,5 +1,3 @@
-import { useState } from "react"
-
 interface TaskType {
     id: number
     text: string
@@ -10,17 +8,17 @@ interface TaskType {
 interface Props {
     task: TaskType
     removeTask: (id: number) => void
+    setTaskCompleted: (id: number) => void
 }
 
-function Task({ task, removeTask }: Props) {
-    const [completed, setCompleted] = useState(task.completed)
+function Task({ task, removeTask, setTaskCompleted }: Props) {
 
     return (
         <>
             <li key={task.id} className="task-container">
-                <div className={completed ? "task-completed" : "task"}>
+                <div className={task.completed ? "task-completed" : "task"}>
                     <div className="task-left">
-                        <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
+                        <input type="checkbox" checked={task.completed} onChange={(e) => setTaskCompleted(task.id)} />
                         <span className="task-text">{task.text}</span>
                     </div>
 

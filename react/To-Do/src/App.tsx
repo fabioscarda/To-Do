@@ -14,10 +14,10 @@ type TaskType = {
 
 function App() {
   const [selectedDate, setSelectedDate] = useState("11-03-2026")
-  const [selectedView, setSelectedView] = useState("All")
+  const [selectedView, setSelectedView] = useState("all")
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [categorys, setCategorys] = useState<string[]>([])
-  const [selectedCategory, setSelectedCategory] = useState<String>("")
+  const [selectedCategory, setSelectedCategory] = useState("")
   useEffect(() => { console.log(tasks); }, [tasks])
 
   /*const [path, setPath] = useState(window.location.pathname);
@@ -47,14 +47,28 @@ function App() {
     setTasks(prevTasks => [...prevTasks, newTask])
 
     if (category && category.trim() !== "" && !categorys.includes(category)) {
-        setCategorys(prevCategorys => [...prevCategorys, category]);
+      setCategorys(prevCategorys => [...prevCategorys, category]);
     }
+  }
+
+  function setTaskCompleted(id: number) {
+    setTasks(prevTasks =>
+      prevTasks.map(task =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
+    );
   }
 
   function removeTask(id: number) {
     setTasks(tasks.filter(task => task.id !== id))
   }
-  function setDate(date: string) { setSelectedDate(date) }
+
+  const filteredTasks = tasks.filter(task => {
+    if (selectedView === "completed") return task.completed;
+    if (selectedView === "not-completed") return !task.completed;
+    return true;
+  });
+
 
   return (
     <div className="app">
@@ -64,33 +78,44 @@ function App() {
       <TaskForm addTask={addTask} />
 
       <ul>
-        <NavBar 
-          view={setSelectedView} 
-          date={setSelectedDate}/>
+        <NavBar
+          view={setSelectedView}
+          date={setSelectedDate} />
       </ul>
-
+      <br />
       <ul>
-        {tasks.filter(task => task.category === undefined || task.category === "").map(task => (
+
+        {filteredTasks
+          .filter(task => !task.category)
+          .map(task => (
             <Task
               key={task.id}
               task={task}
-              removeTask={removeTask} />
+              removeTask={removeTask}
+              setTaskCompleted={setTaskCompleted}
+            />
           ))}
 
-        {categorys && categorys.length > 0 && (
-          categorys.map(category => (
+        {categorys && categorys.map(category => {
+          const categoryTasks = filteredTasks.filter(task => task.category === category);
+
+          if (categoryTasks.length === 0) return null;
+
+          return (
             <div key={category}>
               <br />
               <h3>{category}</h3>
-              {tasks.filter(task => task.category === category).map(task => (
+              {categoryTasks.map(task => (
                 <Task
                   key={task.id}
                   task={task}
-                  removeTask={removeTask} />
+                  removeTask={removeTask}
+                  setTaskCompleted={setTaskCompleted}
+                />
               ))}
             </div>
-          ))
-        )}
+          );
+        })}
 
       </ul>
 
