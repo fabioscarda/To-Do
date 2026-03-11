@@ -1,26 +1,26 @@
 import { useState } from "react"
 
-type TaskType = {
+interface TaskType {
     id: number
     text: string
     time: string
-    checked: boolean
+    completed: boolean
 }
 
-type Props = {
+interface Props {
     task: TaskType
     removeTask: (id: number) => void
 }
 
 function Task({ task, removeTask }: Props) {
-    const [checked, setChecked] = useState(task.checked)
+    const [completed, setCompleted] = useState(task.completed)
 
     return (
         <>
             <li key={task.id} className="task-container">
-                <div className={checked ? "task-completed" : "task"}>
+                <div className={completed ? "task-completed" : "task"}>
                     <div className="task-left">
-                        <input type="checkbox" checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+                        <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
                         <span className="task-text">{task.text}</span>
                     </div>
 

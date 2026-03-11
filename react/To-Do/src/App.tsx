@@ -2,35 +2,50 @@ import { useEffect, useState } from "react"
 import "./App.css"
 import Task from "./components/Task"
 import TaskForm from "./components/TaskForm"
-import Calendar from "./components/Calendar"
+import NavBar from "./components/Navbar"
 
 type TaskType = {
   id: number
   text: string
   time: string
-  checked: boolean
+  completed: boolean
   category?: string
 }
 
 function App() {
-  const [selectedDate, setSelectedDate] = useState<String>("2026-03-11")
+  const [selectedDate, setSelectedDate] = useState("11-03-2026")
+  const [selectedView, setSelectedView] = useState("All")
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [categorys, setCategorys] = useState<string[]>([])
   const [selectedCategory, setSelectedCategory] = useState<String>("")
   useEffect(() => { console.log(tasks); }, [tasks])
 
-  function addTask(text: string, time: string, checked: boolean, category: string) {
+  /*const [path, setPath] = useState(window.location.pathname);
+
+  useEffect(() => {
+    const handlePop = () => setPath(window.location.pathname);
+    window.addEventListener("popstate", handlePop);
+    return () => window.removeEventListener("popstate", handlePop);
+  }
+    , []
+
+  )
+  const navigate = (to: string) => {
+    window.history.pushState({}, "", to);
+    setPath(to);
+  }*/
+
+  function addTask(text: string, time: string, completed: boolean, category: string) {
     const newTask: TaskType = {
       id: Date.now(),
       text,
       time,
-      checked,
+      completed,
       category
     }
 
     setTasks(prevTasks => [...prevTasks, newTask])
 
-    // Aggiungi la categoria solo se non è vuota e non è già presente
     if (category && category.trim() !== "" && !categorys.includes(category)) {
         setCategorys(prevCategorys => [...prevCategorys, category]);
     }
@@ -38,8 +53,6 @@ function App() {
 
   function removeTask(id: number) {
     setTasks(tasks.filter(task => task.id !== id))
-    // Potrebbe essere necessario ripulire `categorys` se l'ultima task di una categoria viene rimossa,
-    // ma per il problema delle chiavi duplicate non è strettamente necessario qui.
   }
   function setDate(date: string) { setSelectedDate(date) }
 
@@ -51,7 +64,9 @@ function App() {
       <TaskForm addTask={addTask} />
 
       <ul>
-        <Calendar setDate={setDate} />
+        <NavBar 
+          view={setSelectedView} 
+          date={setSelectedDate}/>
       </ul>
 
       <ul>
@@ -65,8 +80,8 @@ function App() {
         {categorys && categorys.length > 0 && (
           categorys.map(category => (
             <div key={category}>
-              <hr />
-              <h2>{category}</h2>
+              <br />
+              <h3>{category}</h3>
               {tasks.filter(task => task.category === category).map(task => (
                 <Task
                   key={task.id}

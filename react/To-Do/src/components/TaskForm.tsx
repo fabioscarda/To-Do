@@ -1,6 +1,6 @@
 import { useState } from "react"
 
-type Props = {
+interface Props {  
   addTask: (text: string, time: string, checked: boolean, category: string) => void
 }
 
