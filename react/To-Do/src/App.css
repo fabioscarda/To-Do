@@ -1,121 +1,189 @@
+*{
+  box-sizing:border-box;
+}
+
 body{
-    font-family: Arial, sans-serif;
-    background:#f7f7f7;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:100vh;
+  font-family:Arial,sans-serif;
+  background:#f7f7f7;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  min-height:100vh;
+  margin:0;
+  padding:20px;
 }
 
 .app{
-    background:white;
-    width:500px;
-    padding:25px;
-    border-radius:12px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.1);
+  background:white;
+  width:100%;
+  max-width:500px;
+  padding:25px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.1);
 }
 
 h1{
-    margin-top:0;
-    font-size:24px;
+  margin-top:0;
+  font-size:24px;
 }
 
 ul{
-    list-style:none;
-    padding:0;
+  list-style:none;
+  padding:0;
+  margin:0;
 }
 
 li{
-    padding:12px 0;
-    border-bottom:1px solid #eee;
+  padding:12px 0;
+  border-bottom:1px solid #eee;
 }
 
-.task-container {
-  list-style: none;
-  width: 100%;
-  padding: 8px 0;
-  border-bottom: 1px solid #eee;
+.task-container{
+  list-style:none;
+  width:100%;
+  padding:8px 0;
+  border-bottom:1px solid #eee;
 }
 
-.task {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;           
-  width: 100%;
+.task{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
 }
 
-.task-left {
-  display: flex;
-  align-items: center;
-  gap: 8px; 
+.task-completed{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  width:100%;
+  text-decoration:line-through;
+  color:gray;
 }
 
-.task-left input[type="checkbox"] {
-  flex-shrink: 0; 
+.task-left{
+  display:flex;
+  align-items:center;
+  gap:8px;
 }
 
-.task-text {
-  margin: 0;      
+.task-left input[type="checkbox"]{
+  flex-shrink:0;
 }
 
-
-.task-right {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+.task-text{
+  margin:0;
 }
 
-.time {
-  font-size: 14px;
-  color: #6b7280;
-  background: #f1f5f9;
-  padding: 4px 8px;
-  border-radius: 6px;
-}
-
-.delete {
-  border: none;
-  background: #ef4444;
-  color: white;
-  border-radius: 6px;
-  padding: 4px 8px;
-  cursor: pointer;
+.task-right{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  flex-shrink:0;
 }
 
 .time{
-    font-size:14px;
-    color:#6b7280;
-    background:#f1f5f9;
-    padding:4px 8px;
-    border-radius:6px;
+  font-size:14px;
+  color:#6b7280;
+  background:#f1f5f9;
+  padding:4px 8px;
+  border-radius:6px;
+}
+
+.delete{
+  border:none;
+  background:#ef4444;
+  color:white;
+  border-radius:6px;
+  padding:4px 8px;
+  cursor:pointer;
 }
 
 .form{
-    margin-top:20px;
-    display:flex;
-    gap:10px;
+  margin-top:20px;
+  display:flex;
+  gap:10px;
+  width:100%;
 }
 
-.form input[type="text"]{
-    flex:1;
-    padding:10px;
-    border-radius:6px;
-    border:1px solid #ddd;
+.form input{
+  flex:1;
+  min-width:0;
+  padding:10px;
+  border-radius:6px;
+  border:1px solid #ddd;
+  height:40px;
 }
 
 .form input[type="time"]{
-    padding:10px;
-    border-radius:6px;
-    border:1px solid #ddd;
+  flex:0 0 120px;
 }
 
 .form button{
-    padding:10px 14px;
-    border:none;
-    border-radius:8px;
-    background:#3B82F6;
-    color:white;
-    font-weight:bold;
-    cursor:pointer;
+  padding:10px 14px;
+  border:none;
+  border-radius:8px;
+  background:#3B82F6;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  height:40px;
+}
+
+@media (max-width:768px){
+
+  body{
+    align-items:flex-start;
+  }
+
+  .form{
+    flex-wrap:wrap;
+  }
+
+  .form input[type="text"]{
+    flex:1 1 100%;
+  }
+
+  .form input[type="time"]{
+    flex:1 1 150px;
+  }
+
+  .form button{
+    flex:1 1 100%;
+  }
+
+}
+
+@media (max-width:480px){
+
+  h1{
+    font-size:20px;
+  }
+
+  .task,
+  .task-completed{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:6px;
+  }
+
+  .task-right{
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .form{
+    flex-direction:column;
+  }
+
+  .form input,
+  .form button{
+    width:100%;
+  }
+
+  .form input[type="time"]{
+    flex:none;
+    width:100%;
+  }
+
 }

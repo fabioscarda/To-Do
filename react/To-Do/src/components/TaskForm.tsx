@@ -1,20 +1,22 @@
 import { useState } from "react"
 
 type Props = {
-  addTask: (text: string, time: string) => void
+  addTask: (text: string, time: string, checked: boolean, category: string) => void
 }
 
 function TaskForm({ addTask }: Props) {
 
-  const [text, setText] = useState("")
+  const [task, setTask] = useState("")
+  const [category, setCategory] = useState("")
   const [time, setTime] = useState("")
 
   function handleAdd() {
-    if (!text) return
+    if (!task) return
+    if(!category) setCategory("No category")
+    addTask(task, time, false, category)
 
-    addTask(text, time)
-
-    setText("")
+    setTask("")
+    setCategory("")
     setTime("")
   }
 
@@ -24,8 +26,14 @@ function TaskForm({ addTask }: Props) {
       <input
         type="text"
         placeholder="Nuova attività"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
+        value={task}
+        onChange={(e) => setTask(e.target.value)}
+      />
+      <input
+        type="text"
+        placeholder="Categoria"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
       />
 
       <input
