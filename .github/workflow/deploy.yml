@@ -29,7 +29,7 @@ jobs:
       - name: Upload build
         uses: actions/upload-pages-artifact@v3
         with:
-          path: react/To-Do/build/dist
+          path: react/To-Do/dist
 
   deploy:
     needs: build
