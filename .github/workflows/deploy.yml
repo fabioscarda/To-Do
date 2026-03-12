@@ -22,12 +22,12 @@ jobs:
 
       - name: Install dependencies
         run: |
-          cd web
+          cd react/To-Do
           npm install
 
       - name: Build
         run: |
-          cd web
+          cd react/To-Do
           npm run build
 
       - name: Upload build
