@@ -80,7 +80,8 @@ function App() {
       <ul>
         <NavBar
           view={setSelectedView}
-          date={setSelectedDate} />
+          date={setSelectedDate} 
+          currentView={selectedView}/>
       </ul>
       <br />
       <ul>

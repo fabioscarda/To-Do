@@ -26,7 +26,6 @@ function Calendar({ setDate }: calendarProp) {
 
     const dates = generateDates();
 
-    // Impostiamo la data odierna come predefinita all'avvio
     useEffect(() => {
         const today = new Date();
         const formattedToday = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getFullYear()}`;
@@ -39,9 +38,16 @@ function Calendar({ setDate }: calendarProp) {
         setDate(date);
     };
 
+    const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const date = e.target.value;
+        setSelectedDate(date);
+        setDate(date);
+    };
+
     return (
         <nav className="calendar-container">
-            <ul className="calendar-list">
+            {/* VERSIONE DESKTOP: Lista orizzontale */}
+            <ul className="calendar-list desktop-calendar">
                 {dates.map((date) => (
                     <li 
                         key={date} 
@@ -52,6 +58,21 @@ function Calendar({ setDate }: calendarProp) {
                     </li>
                 ))}
             </ul>
+
+            {/* VERSIONE MOBILE: Select a tendina */}
+            <div className="mobile-calendar">
+                <select 
+                    className="calendar-select" 
+                    value={selectedDate} 
+                    onChange={handleSelectChange}
+                >
+                    {dates.map((date) => (
+                        <option key={date} value={date}>
+                            {date}
+                        </option>
+                    ))}
+                </select>
+            </div>
         </nav>
     );
 }

@@ -1,13 +1,24 @@
-.view-menu{
+.view-menu {
   text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
 }
-.view-menu span{
-   border: black 1px solid;
-   border-radius: 6px;
-   padding: 10px;
-   margin-left: 5px;
-   margin-right: 5px;
-   cursor: pointer;
+
+.view-menu span {
+  border: 1px solid #000;
+  border-radius: 6px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  color: #000;
+  background: white;
+}
+
+.view-menu span.active {
+  background: #000;
+  color: #fff;
 }
 
 .calendar-container {
@@ -16,14 +27,18 @@
   border-bottom: 1px solid #eee;
 }
 
-.calendar-list {
+.mobile-calendar {
+  display: none;
+}
+
+.desktop-calendar {
   display: flex;
   overflow-x: auto;
   scroll-behavior: smooth;
   gap: 20px;
   padding: 10px 5px;
   list-style: none;
-  -webkit-overflow-scrolling: touch; 
+  -webkit-overflow-scrolling: touch;
 }
 
 .calendar-list::-webkit-scrollbar {
@@ -41,7 +56,6 @@
   font-size: 14px;
   font-weight: 600;
   color: #9ca3af;
-  transition: all 0.2s ease;
   padding-bottom: 8px;
 }
 
@@ -50,8 +64,33 @@
   border-bottom: 2px solid #3B82F6 !important;
 }
 
-.calendar-item:hover {
-  color: #4b5563;
+.calendar-select {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: white;
+  color: #000;
+  font-weight: 600;
+  margin-bottom: 10px;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22%239ca3af%22%20stroke-width%3D%222%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpolyline%20points%3D%226%209%2012%2015%2018%209%22%3E%3C%2Fpolyline%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 18px;
+}
+
+@media (max-width: 480px) {
+  .desktop-calendar {
+    display: none;
+  }
+
+  .mobile-calendar {
+    display: block;
+    padding: 10px 0;
+  }
 }
 
 .calendar-list li {
