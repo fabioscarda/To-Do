@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import "./App.css"
 import Task from "./components/Task"
 import TaskForm from "./components/TaskForm"
@@ -17,8 +17,8 @@ function App() {
   const [selectedView, setSelectedView] = useState("all")
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [categorys, setCategorys] = useState<string[]>([])
-  const [selectedCategory, setSelectedCategory] = useState("")
-  useEffect(() => { console.log(tasks); }, [tasks])
+  //const [selectedCategory, setSelectedCategory] = useState("")
+  //useEffect(() => { console.log(tasks); }, [tasks])
 
   /*const [path, setPath] = useState(window.location.pathname);
 
@@ -73,7 +73,7 @@ function App() {
   return (
     <div className="app">
 
-      <h1>Le mie attività</h1>
+      <h1>Le mie attività {selectedDate}</h1>
 
       <TaskForm addTask={addTask} />
 

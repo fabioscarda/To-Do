@@ -18,7 +18,7 @@ function Task({ task, removeTask, setTaskCompleted }: Props) {
             <li key={task.id} className="task-container">
                 <div className={task.completed ? "task-completed" : "task"}>
                     <div className="task-left">
-                        <input type="checkbox" checked={task.completed} onChange={(e) => setTaskCompleted(task.id)} />
+                        <input type="checkbox" checked={task.completed} onChange={() => setTaskCompleted(task.id)} />
                         <span className="task-text">{task.text}</span>
                     </div>
 

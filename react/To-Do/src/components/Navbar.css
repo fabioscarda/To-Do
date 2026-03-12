@@ -17,8 +17,9 @@
 }
 
 .view-menu span.active {
-  background: #000;
+  background: #3B82F6;
   color: #fff;
+  border: 1px solid #3B82F6;
 }
 
 .calendar-container {
