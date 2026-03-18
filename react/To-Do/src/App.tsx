@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import "./App.css"
 import Task from "./components/Task"
 import TaskForm from "./components/TaskForm"
@@ -13,27 +13,41 @@ type TaskType = {
 }
 
 function App() {
-  const [selectedDate, setSelectedDate] = useState("11-03-2026")
+  const [selectedDate, setSelectedDate] = useState("")
   const [selectedView, setSelectedView] = useState("all")
   const [tasks, setTasks] = useState<TaskType[]>([])
   const [categorys, setCategorys] = useState<string[]>([])
-  //const [selectedCategory, setSelectedCategory] = useState("")
-  //useEffect(() => { console.log(tasks); }, [tasks])
-
-  /*const [path, setPath] = useState(window.location.pathname);
 
   useEffect(() => {
-    const handlePop = () => setPath(window.location.pathname);
-    window.addEventListener("popstate", handlePop);
-    return () => window.removeEventListener("popstate", handlePop);
-  }
-    , []
+    const today = new Date();
+    const formattedToday = `${String(today.getDate()).padStart(2, '0')}-${String(today.getMonth() + 1).padStart(2, '0')}-${today.getFullYear()}`;
+    setSelectedDate(formattedToday);
+  }, [])
 
-  )
-  const navigate = (to: string) => {
-    window.history.pushState({}, "", to);
-    setPath(to);
-  }*/
+  useEffect(() => {
+    const tasksJSON = localStorage.getItem(selectedDate);
+    if (tasksJSON) {
+      setTasks(JSON.parse(tasksJSON));
+      for (const task of JSON.parse(tasksJSON)) {
+        if (task.category && task.category.trim() !== "" && !categorys.includes(task.category))
+          setCategorys(prevCategorys => [...prevCategorys, task.category]);
+      }
+    }
+    else {
+      setTasks([]);
+      setCategorys([]);
+    }
+    console.log(selectedDate);
+    console.log(tasksJSON);
+
+
+  }, [selectedDate])
+
+  useEffect(() => {
+    localStorage.removeItem(selectedDate);
+    localStorage.setItem(selectedDate, JSON.stringify(tasks));
+  }, [tasks])
+
 
   function addTask(text: string, time: string, completed: boolean, category: string) {
     const newTask: TaskType = {
@@ -80,8 +94,8 @@ function App() {
       <ul>
         <NavBar
           view={setSelectedView}
-          date={setSelectedDate} 
-          currentView={selectedView}/>
+          date={setSelectedDate}
+          currentView={selectedView} />
       </ul>
       <br />
       <ul>
